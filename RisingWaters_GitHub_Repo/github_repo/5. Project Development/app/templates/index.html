@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rising Waters — Flood Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌊 Rising Waters</h1>
+            <p class="subtitle">ML-Powered Flood Prediction System</p>
+        </header>
+
+        {% if load_error %}
+        <div class="alert alert-error">
+            {{ load_error }}
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2>Enter Rainfall Data</h2>
+            <form action="/predict" method="POST">
+                <div class="grid">
+                    {% for col, label in fields %}
+                    <div class="form-group">
+                        <label for="{{ col }}">{{ label }}</label>
+                        <input type="number" step="any" name="{{ col }}" id="{{ col }}"
+                               placeholder="0.0" required>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn-predict" {% if load_error %}disabled{% endif %}>
+                    Predict Flood Risk
+                </button>
+            </form>
+        </div>
+
+        <footer>
+            <p>Decision Tree · Random Forest · KNN · XGBoost — best model auto-selected</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result — Rising Waters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌊 Rising Waters</h1>
+            <p class="subtitle">Prediction Result</p>
+        </header>
+
+        <div class="card result-card {{ 'result-danger' if result.is_flood else 'result-safe' }}">
+            <h2>{{ result.prediction }}</h2>
+            <p class="probability">Estimated flood probability: <strong>{{ result.probability }}</strong></p>
+
+            <h3>Input Summary</h3>
+            <table class="input-table">
+                <tbody>
+                {% for key, val in result.inputs.items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ val }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="/" class="btn-back">← Run Another Prediction</a>
+        </div>
+    </div>
+</body>
+</html>
